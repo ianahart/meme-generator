@@ -1,0 +1,18 @@
+.select-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+ul.dropdown-content.select-dropdown li span {
+  color: #1565c0;
+}
+
+.input-field input[type='text']:focus + label {
+  color: #000;
+}
+
+.input-field input[type='text']:focus {
+  border-bottom: 1px solid #1565c0;
+}

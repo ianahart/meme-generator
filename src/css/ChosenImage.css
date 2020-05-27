@@ -1,0 +1,58 @@
+.chosen-image-container {
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 10rem;
+  margin-bottom: 5rem;
+  width: 400px;
+  max-width: 400px;
+  position: relative;
+}
+
+.chosen-image-container img {
+  max-width: 400px;
+  width: 400px;
+  height: 100%;
+  word-wrap: break-word;
+}
+
+.meme-text-container {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  word-wrap: break-word;
+  text-align: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+#chosen-image .meme-text-container .meme-top-text,
+#chosen-image .meme-text-container .meme-bottom-text {
+  color: #fff;
+  /* margin-bottom: 5rem; */
+  margin: 0;
+  font-size: 1.5rem;
+  text-shadow: black 0px 0px 5px;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 96%;
+}
+
+@media only screen and (max-width: 600px) {
+  .chosen-image-container {
+    width: 90%;
+  }
+  .chosen-image-container img {
+    width: 90%;
+  }
+  .meme-text-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    word-wrap: break-word;
+  }
+  #chosen-image .meme-text-container .meme-top-text,
+  #chosen-image .meme-text-container .meme-bottom-text {
+    margin-bottom: 0;
+    width: 84%;
+    margin: 0 auto;
+  }
+}

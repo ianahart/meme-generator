@@ -1,0 +1,23 @@
+#form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+#form-container #bottom-text,
+#form-container #top-text {
+  width: 400px;
+}
+
+#form-container #bottom-text:focus,
+#form-container #top-text:focus {
+  border-bottom-color: #1565c0;
+}
+
+@media only screen and (max-width: 600px) {
+  #form-container #bottom-text,
+  #form-container #top-text {
+    width: 100%;
+  }
+}

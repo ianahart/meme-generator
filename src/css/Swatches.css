@@ -1,0 +1,43 @@
+.swatches-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
+
+.swatches-container button {
+  height: 40px;
+  width: 40px;
+  justify-self: center;
+  border-radius: 50%;
+  opacity: 1;
+  transition: all 0.5s;
+  margin-right: 0.5rem;
+}
+
+.swatches-container button:hover {
+  opacity: 0.7;
+  transform: scale(1.2);
+}
+
+.swatches-container button[value='#ef5350'] {
+  background-color: #ef5350;
+}
+
+.swatches-container button[value='#42a5f5'] {
+  background-color: #42a5f5;
+}
+
+.swatches-container button[value='#66bb6a'] {
+  background-color: #66bb6a;
+}
+
+.swatches-container button[value='white'] {
+  background-color: white;
+}
+
+.swatches-container button[value='black'] {
+  background-color: black;
+}
