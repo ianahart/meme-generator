@@ -33,6 +33,7 @@ class ImageGallery extends React.Component {
             {this.state.imageData.map((item) => {
               return (
                 <SingleImage
+                  getImageSize={this.props.getImageSize}
                   handleChosenImage={this.props.handleChosenImage}
                   key={item.id}
                   text={item.name}

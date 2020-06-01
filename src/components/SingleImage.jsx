@@ -27,6 +27,7 @@ class SingleImage extends React.Component {
 
   handleImageClick = (e) => {
     this.props.handleChosenImage(e.target.src);
+    this.props.getImageSize(e.target.clientHeight, e.target.clientWidth);
     scroll.scrollToBottom();
   };
 

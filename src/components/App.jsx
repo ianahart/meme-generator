@@ -13,6 +13,8 @@ class App extends React.Component {
 
     this.state = {
       chosenImage: null,
+      chosenImageHeight: null,
+      chosenImageWidth: null,
     };
   }
 
@@ -21,14 +23,28 @@ class App extends React.Component {
       chosenImage: imageSrc,
     });
   };
+
+  getImageSize = (height, width) => {
+    this.setState({
+      chosenImageHeight: height,
+      chosenImageWidth: width,
+    });
+  };
   render() {
     return (
       <div>
         <div className="main-content">
           <NavBar title="Meme Maker" />
           <Header />
-          <ImageGallery handleChosenImage={this.handleChosenImage} />
-          <ChosenImage chosenImage={this.state.chosenImage} />
+          <ImageGallery
+            getImageSize={this.getImageSize}
+            handleChosenImage={this.handleChosenImage}
+          />
+          <ChosenImage
+            chosenImageWidth={this.state.chosenImageWidth}
+            chosenImageHeight={this.state.chosenImageHeight}
+            chosenImage={this.state.chosenImage}
+          />
         </div>
         <Footer name="Ian Hart" />
       </div>

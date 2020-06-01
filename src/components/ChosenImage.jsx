@@ -9,30 +9,54 @@ class ChosenImage extends React.Component {
     super(props);
 
     this.state = {
-      topText: null,
-      bottomText: null,
-      imageWidth: null,
+      topText: '',
+      bottomText: '',
       textColor: null,
-      fontSize: null,
-      margin: 0,
     };
     this.imageRef = React.createRef();
+    this.canvasRef = React.createRef();
+    this.anchorRef = React.createRef();
   }
 
-  handleSelectChange = (fontSize) => {
-    this.setState({
-      fontSize,
-    });
-  };
+  componentDidUpdate() {
+    const ctx = this.canvasRef.current.getContext('2d');
+    let image = new Image();
+    image.crossOrigin = 'anonymous';
+    image.src = this.props.chosenImage || '';
+    image.onload = () => {
+      if (localStorage.getItem('isThereAnImage')) {
+        localStorage.removeItem('isThereAnImage');
 
-  handleTopText = (text) => {
+        return;
+      } else {
+        localStorage.setItem('isThereAnImage', true);
+        ctx.drawImage(
+          image,
+          0,
+          0,
+          this.canvasRef.current.width,
+          this.canvasRef.current.height
+        );
+      }
+    };
+
+    ctx.font = '32px Arial';
+    ctx.fillStyle = this.state.textColor;
+    ctx.textAlign = 'center';
+    ctx.fillText(this.state.topText, this.canvasRef.current.width / 2, 30);
+    ctx.fillText(
+      this.state.bottomText,
+      this.canvasRef.current.width / 2,
+      this.canvasRef.current.height
+    );
+    const dataURL = this.canvasRef.current.toDataURL('image/jpg');
+    this.anchorRef.current.href = dataURL;
+  }
+
+  handleSubmit = (topText, bottomText) => {
     this.setState({
-      topText: text,
-    });
-  };
-  handleBottomText = (text) => {
-    this.setState({
-      bottomText: text,
+      topText,
+      bottomText,
     });
   };
   handleTextColorChange = (textColor) => {
@@ -41,73 +65,26 @@ class ChosenImage extends React.Component {
     });
   };
 
-  calculateMargin = () => {
-    if (this.imageRef.current.clientHeight > 500) {
-      this.setState({
-        margin: 20,
-      });
-    } else {
-      this.setState({
-        margin: 3,
-      });
-    }
-  };
-
-  handleMemeCapture = () => {};
-
-  componentDidMount() {
-    this.setState({
-      imageWidth: this.imageRef.current.clientWidth,
-    });
-  }
-
   render() {
     return (
       <div>
-        <div
-          onClick={this.handleMemeCapture}
-          onLoad={this.calculateMargin}
-          id="chosen-image"
-          className="chosen-image-container capture"
-        >
-          <img
-            onChange={this.calculateMargin}
-            ref={this.imageRef}
-            src={this.props.chosenImage}
-          />
-          <div
-            style={{ width: this.state.imageWidth }}
-            className="meme-text-container"
-          >
-            <p
-              style={{
-                color: this.state.textColor,
-                fontSize: `${this.state.fontSize}rem`,
-              }}
-              className="meme-top-text"
-            >
-              {this.state.topText}
-            </p>
-            <p
-              style={{
-                color: this.state.textColor,
-                fontSize: `${this.state.fontSize}rem`,
-                marginTop: `${this.state.margin}rem`,
-              }}
-              className="meme-bottom-text"
-            >
-              {this.state.bottomText}
-            </p>
-          </div>
+        <div className="chosen-image-container">
+          <canvas
+            ref={this.canvasRef}
+            id="chosen-image"
+            width={this.props.chosenImageWidth || '400'}
+            height={this.props.chosenImageHeight || '400'}
+          ></canvas>
+          {this.props.chosenImage === null ? null : (
+            <div>
+              <a ref={this.anchorRef} download className="download-btn">
+                Download{' '}
+              </a>
+              <Swatches handleTextColorChange={this.handleTextColorChange} />
+              <MemeForm handleSubmit={this.handleSubmit} />{' '}
+            </div>
+          )}
         </div>
-        {this.props.chosenImage ? (
-          <MemeForm
-            handleSelectChange={this.handleSelectChange}
-            handleTextColorChange={this.handleTextColorChange}
-            handleBottomText={this.handleBottomText}
-            handleTopText={this.handleTopText}
-          />
-        ) : null}
       </div>
     );
   }

@@ -10,6 +10,26 @@
   width: 400px;
 }
 
+#form-container .add-text {
+  display: block;
+  margin: 0 auto;
+  margin-top: 3rem;
+  background-color: #1565c0;
+  padding: 0.75rem;
+  border: none;
+  outline: none;
+  border-radius: 0.25rem;
+  width: 50%;
+  color: #fff;
+  text-transform: uppercase;
+  transition: all 0.5s;
+}
+
+#form-container .add-text:hover {
+  background-color: #0d47a1;
+  color: whitesmoke;
+}
+
 #form-container #bottom-text:focus,
 #form-container #top-text:focus {
   border-bottom-color: #1565c0;

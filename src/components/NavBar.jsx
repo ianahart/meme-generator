@@ -7,7 +7,7 @@ const NavBar = ({ title }) => {
         <div className="nav-wrapper blue darken-3">
           <a href="/" className="brand-logo center">
             {title}
-            <i class="fas fa-image"></i>
+            <i className="fas fa-image"></i>
           </a>
         </div>
       </nav>
