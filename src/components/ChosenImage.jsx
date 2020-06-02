@@ -12,6 +12,7 @@ class ChosenImage extends React.Component {
       topText: '',
       bottomText: '',
       textColor: null,
+      image: null,
     };
     this.imageRef = React.createRef();
     this.canvasRef = React.createRef();
@@ -22,35 +23,41 @@ class ChosenImage extends React.Component {
     const ctx = this.canvasRef.current.getContext('2d');
     let image = new Image();
     image.crossOrigin = 'anonymous';
-    image.src = this.props.chosenImage || '';
+    image.src = this.props.chosenImage;
+    console.log(image);
     image.onload = () => {
-      if (localStorage.getItem('isThereAnImage')) {
-        localStorage.removeItem('isThereAnImage');
-
-        return;
-      } else {
-        localStorage.setItem('isThereAnImage', true);
-        ctx.drawImage(
-          image,
-          0,
-          0,
-          this.canvasRef.current.width,
-          this.canvasRef.current.height
-        );
-      }
+      let count = 10,
+        timer = setInterval(() => {
+          count--;
+          if (count % 2 == 1) {
+            ctx.font = '32px Arial';
+            ctx.fillStyle = this.state.textColor;
+            ctx.textAlign = 'center';
+            ctx.fillText(
+              this.state.topText,
+              this.canvasRef.current.width / 2,
+              30
+            );
+            ctx.fillText(
+              this.state.bottomText,
+              this.canvasRef.current.width / 2,
+              this.canvasRef.current.height
+            );
+            const dataURL = this.canvasRef.current.toDataURL('image/jpg');
+            this.anchorRef.current.href = dataURL;
+          } else {
+            return;
+          }
+          if (count == 0) clearInterval(timer);
+        }, 1000);
+      ctx.drawImage(
+        image,
+        0,
+        0,
+        this.canvasRef.current.width,
+        this.canvasRef.current.height
+      );
     };
-
-    ctx.font = '32px Arial';
-    ctx.fillStyle = this.state.textColor;
-    ctx.textAlign = 'center';
-    ctx.fillText(this.state.topText, this.canvasRef.current.width / 2, 30);
-    ctx.fillText(
-      this.state.bottomText,
-      this.canvasRef.current.width / 2,
-      this.canvasRef.current.height
-    );
-    const dataURL = this.canvasRef.current.toDataURL('image/jpg');
-    this.anchorRef.current.href = dataURL;
   }
 
   handleSubmit = (topText, bottomText) => {

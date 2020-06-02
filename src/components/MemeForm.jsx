@@ -18,7 +18,7 @@ class MemeForm extends React.Component {
     return (
       <div>
         <div id="form-container" className="row">
-          <form autocomplete="off" onSubmit={this.handleSubmit}>
+          <form autoComplete="off" onSubmit={this.handleSubmit}>
             <div className="row">
               <div className="input-field col s12">
                 <input id="top-text" name="toptext" type="text" />
